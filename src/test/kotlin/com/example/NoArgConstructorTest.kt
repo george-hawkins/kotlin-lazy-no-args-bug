@@ -114,13 +114,29 @@ class NoArgConstructorTest {
 
     // -----------------------------------------------------------------
 
+    @JsonIdentityInfo(generator=ObjectIdGenerators.IntSequenceGenerator::class, property="@id")
+    private class Alpha5 @JsonCreator(mode = JsonCreator.Mode.DISABLED) constructor(var beta: Beta5?)
+
+    @JsonIdentityInfo(generator=ObjectIdGenerators.IntSequenceGenerator::class, property="@id")
+    private class Beta5 @JsonCreator(mode = JsonCreator.Mode.DISABLED) constructor(val alpha: Alpha5)
+
+    @Test
+    fun `test disabling primary constructors`() {
+        val alpha = mapper.readValue(json, Alpha5::class.java)
+
+        assertNotNull(alpha.beta)
+    }
+
+    // -----------------------------------------------------------------
+
     @Test
     fun `test that Alpha1, Alpha2 etc have the same constructors`() {
         val beta1 = getCleanedUpConstructorSignatures(Beta1::class.java)
         val beta2 = getCleanedUpConstructorSignatures(Beta2::class.java)
         val beta3 = getCleanedUpConstructorSignatures(Beta3::class.java)
         val beta4 = getCleanedUpConstructorSignatures(Beta4::class.java)
-        val constructors = listOf(beta1, beta2, beta3, beta4)
+        val beta5 = getCleanedUpConstructorSignatures(Beta5::class.java)
+        val constructors = listOf(beta1, beta2, beta3, beta4, beta5)
 
         constructors.forEach {
             assertEquals(2, it.size)
