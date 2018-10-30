@@ -1,13 +1,14 @@
 package com.example
 
-import com.fasterxml.jackson.annotation.JsonIgnore
 import kotlin.test.Test
 import kotlin.test.assertEquals
+
+annotation class NoArg
 
 class LazyUnmarshallTest {
     @NoArg
     private class Foo(var name: String) {
-        @get:JsonIgnore val lazyName by lazy { "lazy $name" }
+        val lazyName by lazy { "lazy $name" }
     }
 
     @Test fun `test normal construction`() {
