@@ -1,0 +1,1 @@
+The issue documented in this repo was resolved by adding `<option>no-arg:invokeInitializers=true</option>` to the `pluginOptions` section of the pom, as pointed out by Yan Zhulanow in his comment on [KT-27902](https://youtrack.jetbrains.com/issue/KT-27902#focus=streamItem-27-3138245-0-0).

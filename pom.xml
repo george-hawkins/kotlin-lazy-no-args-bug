@@ -57,6 +57,7 @@
           </compilerPlugins>
           <pluginOptions>
             <option>no-arg:annotation=com.example.NoArg</option>
+            <option>no-arg:invokeInitializers=true</option>
           </pluginOptions>
           <jvmTarget>1.8</jvmTarget>
         </configuration>
